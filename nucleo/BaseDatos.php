@@ -33,7 +33,7 @@ class BaseDatos
 		}
 	}
 
-	private function cnxConectar($strDestino = 'produccion')
+	private function cnxConectar($strDestino = 'desarrollo')
 	{
 		try 
 		{
