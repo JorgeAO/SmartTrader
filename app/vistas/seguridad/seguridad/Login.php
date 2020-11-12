@@ -29,7 +29,7 @@
 
 <div class="col-sm-6 offset-sm-3">
 	<div class="card">
-		<div class="card-header text-white bg-dark text-center">Iniciar Sesión | Pruebas</div>
+		<div class="card-header text-white bg-dark text-center">Iniciar Sesión</div>
 		<div class="card-body">
 			<div class="col-sm-12">
 				<form id="frm_src">
