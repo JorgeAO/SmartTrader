@@ -18,7 +18,7 @@ class Control
 			$arrParametros['fc'] = date('Y-m-d H:m:s');
 			$arrParametros['uc'] = $_SESSION['usuario_sesion'][0]['usua_codigo'];
 
-			include_once '../../app/modelos/'.$this->strClase.'.php';
+			//include_once '../../app/modelos/'.$this->strClase.'.php';
 			$clase = new $this->strClase();
 			$clase::insertar($arrParametros);
 
@@ -64,7 +64,7 @@ class Control
 			$arrParametros['fm'] = date('Y-m-d H:m:s');
 			$arrParametros['um'] = $_SESSION['usuario_sesion'][0]['usua_codigo'];
 
-			include_once '../../app/modelos/'.$this->strClase.'.php';
+			//include_once '../../app/modelos/'.$this->strClase.'.php';
 			$clase = new $this->strClase();
 			$clase::editar($arrParametros);
 
@@ -85,7 +85,7 @@ class Control
 			if (!ClsPermisos::blValidarPermiso($this->intOpcion, 'd'))
 				throw new Exception('Usted no posee permisos para ejecutar esta acción');
 
-			include_once '../../app/modelos/'.$this->strClase.'.php';
+			//include_once '../../app/modelos/'.$this->strClase.'.php';
 			$clase = new $this->strClase();
 			$clase::eliminar($arrParametros);
 
@@ -106,7 +106,7 @@ class Control
 			if (!ClsPermisos::blValidarPermiso($this->intOpcion, 'l'))
 				throw new Exception('Usted no posee permisos para ejecutar esta acción');
 
-			include_once '../../app/modelos/'.$this->strClase.'.php';
+			//include_once '../../app/modelos/'.$this->strClase.'.php';
 			$clase = new $this->strClase();
 			$arrResultados = $clase::consultar($arrParametros);
 
