@@ -3,4 +3,4 @@ deployment:
   tasks:
     - export DEPLOYPATH=/home/eintecsas/public_html/idcreativas.com/apps/SmartTrader/
     - /bin/cp -R app $DEPLOYPATH
-    - /bin/cp nucleo $DEPLOYPATH
+    - /bin/cp -R nucleo $DEPLOYPATH
