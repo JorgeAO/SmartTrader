@@ -14,7 +14,7 @@ class BaseDatos
 			];
 			$arrDatosCnx['produccion'] = [
 				'servidor' => 'localhost',
-				'usuario' => 'root',
+				'usuario' => 'user_smarttrader',
 				'clave' => 'st2020.*',
 				'basedatos' => 'bd_smarttrader',
 			];
@@ -33,7 +33,7 @@ class BaseDatos
 		}
 	}
 
-	private function cnxConectar($strDestino = 'desarrollo')
+	private function cnxConectar($strDestino = 'produccion')
 	{
 		try 
 		{
