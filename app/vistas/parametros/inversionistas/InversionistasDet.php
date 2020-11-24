@@ -12,6 +12,19 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+
+		$('#btn_act_mov').on('click', function(){
+			actInformacion();
+			actMovimientos();
+		});
+
+		actInformacion();
+		actMovimientos();
+
+	});
+
+	function actInformacion() 
+	{
 		enviarPeticion('inversionistas/consultar',
 			{'inve_codigo':<?=$_REQUEST['cod']?>}, 
 			function(rta){
@@ -19,14 +32,8 @@
 					$('#'+i).html(val);
 				});
 			}
-		);
-
-		$('#btn_act_mov').on('click', function(){
-			actMovimientos();
-		});
-
-		actMovimientos();
-	});
+		);	
+	}
 
 	function actMovimientos()
 	{
@@ -43,6 +50,7 @@
 						'<th>Código</th>'+
 						'<th>Inversionista</th>'+
 						'<th>Tipo de Movimiento</th>'+
+						'<th>Descripción</th>'+
 						'<th>Fecha</th>'+
 						'<th>Monto</th>'+
 						'</tr>'+
@@ -54,6 +62,7 @@
 							'<td>'+val['movi_codigo']+'</td>'+
 							'<td>'+val['inve_nombre']+' '+val['inve_apellido']+'</td>'+
 							'<td>'+val['movi_tipo_2']+'</td>'+
+							'<td>'+val['movi_descripcion']+'</td>'+
 							'<td>'+val['movi_fecha']+'</td>'+
 							'<td>'+val['movi_monto']+'</td>'+
 							'</tr>';
@@ -76,7 +85,10 @@
 
 <div class="col-sm-12">
 	<div class="card">
-		<div class="card-header bg-dark text-white">Detalles del Inversionista</div>
+		<div class="card-header bg-dark text-white">
+			<button class="btn btn-success btn-sm texto-12" id="btn_act_mov" title="Actualizar movimientos"><i class="fa fa-refresh"></i></button>
+			Detalles del Inversionista
+		</div>
 		<div class="card-body">
 			<div class="row">
 					<div class="col">
@@ -153,7 +165,6 @@
 				<div class="col-sm-12">
 					<div class="card">
 						<div class="card-header bg-dark text-white">
-							<button class="btn btn-success btn-sm texto-12" id="btn_act_mov" title="Actualizar movimientos"><i class="fa fa-refresh"></i></button>
 							Movimientos
 						</div>
 						<div class="card-body">

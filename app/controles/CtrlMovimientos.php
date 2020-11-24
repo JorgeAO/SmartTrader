@@ -8,6 +8,7 @@ class CtrlMovimientos extends Control
 {
 	protected $intOpcion = 3001;
 	protected $strClase = 'ClsMovimientos';
+	
 
 	public function insertar($arrParametros)
 	{

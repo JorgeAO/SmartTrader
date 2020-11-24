@@ -8,7 +8,7 @@ class BaseDatos
 		{
 			$arrDatosCnx['desarrollo'] = [
 				'servidor' => 'localhost',
-				'usuario' => 'user_smarttrader',
+				'usuario' => 'root',
 				'clave' => '',
 				'basedatos' => 'bd_smarttrader',
 			];

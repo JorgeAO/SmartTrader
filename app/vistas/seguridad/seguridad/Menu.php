@@ -17,7 +17,11 @@
 <nav class="navbar navbar-dark navbar-expand-sm bg-dark">
 	<p>
 		<h5 class="text-white">
+<<<<<<< HEAD
 			<a href="../seguridad/principal"> Smart Trader </a>
+=======
+			<a href="/apps/SmartTrader/seguridad/principal"> Smart Trader </a> | Pruebas
+>>>>>>> test
 		</h5>
 	</p>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav_menu" aria-controls="nav_menu" aria-expanded="false" aria-label="Toggle navigation">
