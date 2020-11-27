@@ -54,7 +54,7 @@
 							'<td>'+val['clie_celular']+'</td>'+
 							'<td>'+val['esta_descripcion']+'</td>'+
 							'<td class="btn-group">'+
-							'<a href="clientesDet/'+val['clie_codigo']+'" class="btn btn-primary btn-sm" title="Detalles"><i class="fa fa-info"></i></a>'+
+							//'<a href="clientesDet/'+val['clie_codigo']+'" class="btn btn-primary btn-sm" title="Detalles"><i class="fa fa-info"></i></a>'+
 							'<a href="clientesUpd/'+val['clie_codigo']+'" class="btn btn-primary btn-sm" title="Editar registro"><i class="fa fa-edit"></i></a>'+
 							'<button class="btn btn-danger btn-sm" type="button" title="Eliminar registro" onclick="eliminar('+val['clie_codigo']+')"><i class="fa fa-trash-o"></i></button>'+
 							'</td>'+

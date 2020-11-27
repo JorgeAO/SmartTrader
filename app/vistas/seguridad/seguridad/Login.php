@@ -1,3 +1,5 @@
+<meta name="viewport" content="width=device-width, user-scalable=no">
+
 <script type="text/javascript" src="../recursos/librerias/jquery/jquery-3.2.0.min.js"></script>
 <script type="text/javascript" src="../recursos/librerias/propias/js/scripts.js"></script>
 <script type="text/javascript" src="../recursos/librerias/propias/js/validador.js"></script>

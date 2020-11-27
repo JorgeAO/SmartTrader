@@ -589,24 +589,73 @@ class CtrlPrestamos extends Control
 		}
 	}
 
-	public function porCobrar($arrParametros = '')
+	public function anular($arrParametros = [])
 	{
 		try 
 		{
-			date_default_timezone_set('America/Bogota');
-			$arrCuotas = ClsCuotas::consultar([
-				'prcu_fecha' => date('Y-m-d'),
-				'fk_par_estados' => 3,
+			// Consultar las cuotas pagadas del préstamo
+			$arrCuotasPagadas = ClsCuotas::consultar([
+				'fk_pre_prestamos' => $arrParametros['pres_codigo'],
+				'fk_par_estados' => 4, // Cuotas pagadas
+			]);
+			
+			// Validar si hay cuotas pagadas, no se puede anular el préstamo
+			if (count($arrCuotasPagadas) > 0)
+				throw new Exception('El préstamo no se puede anular porque ya hay cuotas pagadas');
+				
+			// Cambiar el estado del préstamos a anulado
+			ClsPrestamos::editar([
+				'pres_codigo' => $arrParametros['pres_codigo'],
+				'fk_par_estados' => 6
 			]);
 
-			echo "<pre>";
-			print_r($arrCuotas);
-			echo "</pre>";
-			exit();
-		} 
-		catch (Exception $e) 
+			// Cambiar el estado de todas la cuptas a anuladas
+			BaseDatos::ejecutarSentencia("update tb_pre_cuotas set fk_par_estados = 6 where fk_pre_prestamos = ".$arrParametros['pres_codigo'].";");
+
+			// Consultar el préstamo
+			$arrPrestamo = ClsPrestamos::consultar([ 'pres_codigo' => $arrParametros['pres_codigo'] ]);
+
+			// Consultar la participación de los inversionistas
+			$arrParticipaciones = ClsParticipacion::consultar([
+				'fk_pre_prestamos' => $arrParametros['pres_codigo'],
+			]);
+			
+			// Recorrer a los inversionistas
+			foreach ($arrParticipaciones as $arrParticipacion)
+			{
+				// Calcular el valor invertido por el inversionista
+				$flCapitalInvertido = $arrPrestamo[0]['pres_vlr_monto'] * $arrParticipacion['prpa_porcentaje'] / 100;
+
+				// Consultar la información del inversionista
+				$arrInversionista = ClsInversionistas::consultar([
+					'inve_codigo' => $arrParticipacion['fk_par_inversionistas']
+				]);
+
+				// Sumar el valor invertido por el inversionista a su saldo
+				ClsInversionistas::editar([
+					'inve_codigo' => $arrParticipacion['fk_par_inversionistas'],
+					'inve_saldo' => $arrInversionista[0]['inve_saldo'] + $flCapitalInvertido,
+				]);
+				
+				// Insertar movimiento de caja ------------------------------------
+				ClsMovimientos::insertar([
+					'fk_par_inversionistas' => $arrParticipacion['fk_par_inversionistas'],
+					'movi_tipo' => 'E',
+					'movi_descripcion' => 'Devolución de la inversión por anulación del préstamos # '.$arrParametros['pres_codigo'],
+					'movi_fecha' => date('Y-m-d H:i:s'),
+					'movi_monto' => $flCapitalInvertido,
+					'fc' => date('Y-m-d H:m:s'),
+					'uc' => $_SESSION['usuario_sesion'][0]['usua_codigo']
+				]);
+			}
+			
+			$objRta->tipo = 'exito';
+			$objRta->mensaje = 'El proceso se realizó con éxito';
+			return $objRta;
+		}
+		catch (Exception $e)
 		{
-			throw new Exception('CtrlPrestamos->porCobrar: ' . $e->getMessage());
+			throw new Exception('CtrlPrestamos->anular: ' . $e->getMessage());
 		}
 	}
 }

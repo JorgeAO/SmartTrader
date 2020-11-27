@@ -58,6 +58,7 @@
 							'<td class="btn-group">'+
 							'<a href="prestamosDet/'+val['pres_codigo']+'" class="btn btn-primary btn-sm" title="Detalles"><i class="fa fa-info"></i></a>'+
 							'<a href="clientesUpd/'+val['pres_codigo']+'" class="btn btn-primary btn-sm" title="Editar registro"><i class="fa fa-edit"></i></a>'+
+							'<button class="btn btn-danger btn-sm" type="button" title="Anular préstamo" onclick="anular('+val['pres_codigo']+')"><i class="fa fa-ban"></i></button>'+
 							'</td>'+
 							'</tr>';
 					});
@@ -71,6 +72,21 @@
 				}
 			}
 		);
+	}
+
+	function anular(cod)
+	{
+		if (confirm('¿Está seguro que desea anular el préstamo?'))
+		{
+			enviarPeticion('prestamos/anular',
+				{'pres_codigo':cod}, 
+				function(rta){
+					alert(rta.mensaje);
+					if (rta.tipo == 'exito')
+						consultar();
+				}
+			);
+		}
 	}
 </script>
 

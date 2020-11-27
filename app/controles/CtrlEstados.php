@@ -11,7 +11,6 @@ class CtrlEstados extends Control
 	{
 		try 
 		{
-			include_once '../../app/modelos/'.$this->strClase.'.php';
 			$clase = new $this->strClase();
 			$arrResultados = $clase::consultar($arrParametros);
 

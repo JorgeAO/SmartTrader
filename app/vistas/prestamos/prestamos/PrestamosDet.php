@@ -227,6 +227,10 @@
 							estado = 'primary';
 						else if (val['fk_par_estados'] == 4)
 							estado = 'success';
+						else if (val['fk_par_estados'] == 5)
+							estado = 'danger';
+						else if (val['fk_par_estados'] == 6)
+							estado = 'secondary';
 
 						tbl_cuotas += '<tr>'+
 							'<td>'+val['prcu_numero']+'</td>'+
@@ -235,10 +239,10 @@
 							'<td><span class="badge badge-'+estado+'">'+val['esta_descripcion']+'</span></td>'+
 							'<td>'+val['prcu_fecha_pago']+'</td>'+
 							'<td>'+val['prcu_valor_pago']+'</td>'+
-							'<td>'+
-							'<button class="btn btn-success btn-sm" type="button" title="Registrar pago" onclick="registrarPago('+val['prcu_codigo']+', '+val['prcu_vlr_saldo']+', '+rta.datos.prestamo[0]['pres_vlr_saldo']+')"><i class="fa fa-usd"></i></button>'+
-							'</td>'+
-							'</tr>';
+							'<td>';
+							if (val['fk_par_estados'] == 3 || val['fk_par_estados'] == 5)
+								tbl_cuotas += '<button class="btn btn-success btn-sm" type="button" title="Registrar pago" onclick="registrarPago('+val['prcu_codigo']+', '+val['prcu_vlr_saldo']+', '+rta.datos.prestamo[0]['pres_vlr_saldo']+')"><i class="fa fa-usd"></i></button>';
+							tbl_cuotas += '</td></tr>';
 					});
 
 					tbl_cuotas += '</tbody></table>';

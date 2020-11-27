@@ -1,3 +1,5 @@
+<meta name="viewport" content="width=device-width, user-scalable=no">
+
 <? session_start(); ?>
 
 <script type="text/javascript">

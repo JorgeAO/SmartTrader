@@ -11,6 +11,10 @@ class CtrlPrincipal
     {
         try 
         {
+            // Establecer zona horaria
+            setlocale (LC_ALL, "es_ES");
+	        date_default_timezone_set ('America/Bogota'); 
+            
             // Consultar prestamos
             $clsPrestamos = new ClsPrestamos();
             $arrPrestamos = $clsPrestamos->consultar([ 'pres.fk_par_estados' => 1 ]);
@@ -23,10 +27,19 @@ class CtrlPrincipal
             $clsInversionistas = new ClsInversionistas();
             $arrInversionistas = $clsInversionistas->consultar([ 'inve.fk_par_estados' => 1 ]);
 
+            // Consultar cuánto se debe recoger hoy
+            $arrTotalHoy = BaseDatos::ejecutarSentencia("select coalesce(sum(prcu_vlr_saldo), 0) as total_hoy from tb_pre_cuotas where prcu_fecha = '".$arrParametros['fecha']."' and fk_par_estados not in (6)");
+
+            // Consultar cuánto se ha recogido hoy
+            $arrTotalRecogido = BaseDatos::ejecutarSentencia("select coalesce(sum(prcu_vlr_saldo), 0) as total_recogido from tb_pre_cuotas where fk_par_estados = 4 and prcu_fecha = '".$arrParametros['fecha']."'");
+
+            
             $arrDatos['fecha'] = date('Y-m-d');
             $arrDatos['prestamos'] = count($arrPrestamos);
             $arrDatos['clientes'] = count($arrClientes);
             $arrDatos['inversionistas'] = count($arrInversionistas);
+            $arrDatos['total_hoy'] = $arrTotalHoy[0]['total_hoy'];
+            $arrDatos['total_recogido'] = $arrTotalRecogido[0]['total_recogido'];
 
 			$objRta->tipo = 'exito';
 			$objRta->datos = $arrDatos;
