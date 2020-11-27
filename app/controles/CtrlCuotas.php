@@ -33,7 +33,8 @@ class CtrlCuotas extends Control
                 join tb_pre_prestamos pres on (prcu.fk_pre_prestamos = pres.pres_codigo)
                 join tb_par_clientes clie on (pres.fk_par_clientes = clie.clie_codigo)
                 join tb_par_estados pces on (prcu.fk_par_estados = pces.esta_codigo)
-                where prcu.prcu_fecha = '".$arrParametros['fecha']."'";
+                where prcu.fk_par_estados not in (6)
+                and prcu.prcu_fecha = '".$arrParametros['fecha']."'";
 
             $arrCuotas = BaseDatos::ejecutarSentencia($sqlCuotas);
 
