@@ -14,59 +14,6 @@
 <link rel="stylesheet" href="../recursos/librerias/select2/css/select2.min.css">
 <link rel="stylesheet" href="../recursos/librerias/datepicker/bootstrap-datepicker-1.9.0/css/bootstrap-datepicker.min.css">
 
-<script type="text/javascript">
-	$(document).ready(function(){
-
-		$('#movi_fecha').datepicker({
-			format: "yyyy-mm-dd",
-			todayBtn: "linked",
-			language: "es"
-		});
-		
-		enviarPeticion('inversionistas/listar',
-			{ 'inve.fk_par_estados':'1' }, 
-			function(rta){
-				$('#fk_par_inversionistas').append('<option value="">-- Seleccione --</option>');
-				$.each(rta.datos, function(i, val){
-					$('#fk_par_inversionistas').append('<option value="'+val['inve_codigo']+'">' + val['inve_identificacion']+' - '+val['inve_nombre']+' '+val['inve_apellido']+'</option>');
-				});
-			}
-		);
-
-		$("#fk_par_inversionistas").select2({
-			placeholder:'-- Seleccione --'
-		});
-
-		$('#btn_aceptar').on('click', function(){
-			if (validarFormulario('frm_add'))
-			{
-				enviarPeticion('movimientos/insertar',
-					prepararFormulario('frm_add'), 
-					function(rta){
-						alert(rta.mensaje);
-						if (rta.tipo == 'exito')
-							window.location.href = 'movimientos';
-					}
-				);
-			}
-		});
-
-		$('#btn_guardar').on('click', function(){
-			if (validarFormulario('frm_add'))
-			{
-				enviarPeticion('movimientos/insertar',
-					prepararFormulario('frm_add'), 
-					function(rta){
-						alert(rta.mensaje);
-						if (rta.tipo == 'exito')
-							window.location.href = 'movimientosAdd';
-					}
-				);
-			}
-		});
-	});
-</script>
-
 <? require '../../seguridad/seguridad/Menu.php'; ?>
 
 <div class="col-sm-12">
@@ -110,6 +57,64 @@
 			<button class="btn btn-success btn-sm texto-12" id="btn_guardar">Guardar y Crear Nuevo</button>
 			<button class="btn btn-success btn-sm texto-12" id="btn_aceptar">Guardar</button>
 			<a class="btn btn-danger btn-sm texto-12" href="movimientos">Cancelar</a>
+			<div id="div_mensaje"></div>
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+
+		$('#movi_fecha').datepicker({
+			format: "yyyy-mm-dd",
+			todayBtn: "linked",
+			language: "es"
+		});
+		
+		enviarPeticion('inversionistas/listar',
+			{ 'inve.fk_par_estados':'1' }, 
+			function(rta){
+				$('#fk_par_inversionistas').append('<option value="">-- Seleccione --</option>');
+				$.each(rta.datos, function(i, val){
+					$('#fk_par_inversionistas').append('<option value="'+val['inve_codigo']+'">' + val['inve_identificacion']+' - '+val['inve_nombre']+' '+val['inve_apellido']+'</option>');
+				});
+			}
+		);
+
+		$("#fk_par_inversionistas").select2({
+			placeholder:'-- Seleccione --'
+		});
+
+		$('#btn_aceptar').on('click', function(){
+			guardar('movimientos');
+		});
+
+		$('#btn_guardar').on('click', function(){
+			guardar('movimientosAdd');
+		});
+	});
+
+	function guardar(siguiente)
+	{
+		if (validarFormulario('frm_add'))
+		{
+			$('#btn_aceptar').attr("disabled", true);
+			$('#btn_guardar').attr("disabled", true);
+			$('#div_mensaje').html('<i class="fa fa-spinner fa-pulse fa-fw"></i> Procesando, un momento por favor');
+
+			enviarPeticion('movimientos/insertar',
+				prepararFormulario('frm_add'), 
+				function(rta){
+					alert(rta.mensaje);
+
+					$('#div_mensaje').html('');
+					$('#btn_aceptar').attr("disabled", false);
+					$('#btn_guardar').attr("disabled", false);
+
+					if (rta.tipo == 'exito')
+						window.location.href = siguiente;
+				}
+			);
+		}
+	}
+</script>

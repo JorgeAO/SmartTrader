@@ -10,53 +10,6 @@
 <link rel="stylesheet" href="../recursos/librerias/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.css">
 <link rel="stylesheet" href="../recursos/librerias/propias/css/estilos.css">
 
-<script type="text/javascript">
-	$(document).ready(function(){
-		enviarPeticion('tiposIdentificacion/listar',
-			{ '':'' }, 
-			function(rta){
-				$.each(rta.datos, function(i, val){
-					$('#fk_par_tipos_identificacion').append('<option value="'+val['tiid_codigo']+'">'+val['tiid_codigo']+' - '+val['tiid_descripcion']+'</option>');
-				});
-			}
-		);
-
-		$('#btn_aceptar').on('click', function(){
-			if (validarFormulario('frm_add'))
-			{
-				if ($('#usua_clave').val() != $('#repetir_clave').val())
-					alert('Las contraseñas no coinciden')
-				else
-					enviarPeticion('inversionistas/insertar',
-						prepararFormulario('frm_add'), 
-						function(rta){
-							alert(rta.mensaje);
-							if (rta.tipo == 'exito')
-								window.location.href = 'inversionistas';
-						}
-					);
-			}
-		});
-
-		$('#btn_guardar').on('click', function(){
-			if (validarFormulario('frm_add'))
-			{
-				if ($('#usua_clave').val() != $('#repetir_clave').val())
-					alert('Las contraseñas no coinciden')
-				else
-					enviarPeticion('inversionistas/insertar',
-						prepararFormulario('frm_add'), 
-						function(rta){
-							alert(rta.mensaje);
-							if (rta.tipo == 'exito')
-								window.location.href = 'inversionistasAdd';
-						}
-					);
-			}
-		});
-	});
-</script>
-
 <? require '../../seguridad/seguridad/Menu.php'; ?>
 
 <div class="col-sm-12">
@@ -134,6 +87,57 @@
 			<button class="btn btn-success btn-sm texto-12" id="btn_guardar">Guardar y Crear Nuevo</button>
 			<button class="btn btn-success btn-sm texto-12" id="btn_aceptar">Aceptar</button>
 			<a class="btn btn-danger btn-sm texto-12" href="inversionistas">Cancelar</a>
+			<div id="div_mensaje"></div>
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		enviarPeticion('tiposIdentificacion/listar',
+			{ '':'' }, 
+			function(rta){
+				$.each(rta.datos, function(i, val){
+					$('#fk_par_tipos_identificacion').append('<option value="'+val['tiid_codigo']+'">'+val['tiid_codigo']+' - '+val['tiid_descripcion']+'</option>');
+				});
+			}
+		);
+
+		$('#btn_aceptar').on('click', function(){
+			guardar('inversionistas');
+		});
+
+		$('#btn_guardar').on('click', function(){
+			guardar('inversionistasAdd');
+		});
+	});
+
+	function guardar(siguiente) 
+	{
+		if (validarFormulario('frm_add'))
+		{
+			if ($('#usua_clave').val() != $('#repetir_clave').val())
+				alert('Las contraseñas no coinciden')
+			else
+			{
+				$('#btn_aceptar').attr("disabled", true);
+				$('#btn_guardar').attr("disabled", true);
+				$('#div_mensaje').html('<i class="fa fa-spinner fa-pulse fa-fw"></i> Procesando, un momento por favor');
+
+				enviarPeticion('inversionistas/insertar',
+					prepararFormulario('frm_add'), 
+					function(rta){
+						alert(rta.mensaje);
+
+						$('#div_mensaje').html('');
+						$('#btn_aceptar').attr("disabled", false);
+						$('#btn_guardar').attr("disabled", false);
+
+						if (rta.tipo == 'exito')
+							window.location.href = siguiente;
+					}
+				);
+			}
+		}	
+	}
+</script>

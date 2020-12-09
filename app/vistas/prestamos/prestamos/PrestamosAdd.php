@@ -96,6 +96,7 @@
 			<button class="btn btn-success btn-sm texto-12" id="btn_guardar">Guardar y Crear Nuevo</button>
 			<button class="btn btn-success btn-sm texto-12" id="btn_aceptar">Guardar</button>
 			<a class="btn btn-danger btn-sm texto-12" href="prestamos">Cancelar</a>
+			<div id="div_mensaje"></div>
 		</div>
 	</div>
 </div>
@@ -181,6 +182,10 @@
 
 		if (valido == true)
 		{
+			$('#btn_aceptar').attr("disabled", true);
+			$('#btn_guardar').attr("disabled", true);
+			$('#div_mensaje').html('<i class="fa fa-spinner fa-pulse fa-fw"></i> Procesando, un momento por favor');
+				
 			enviarPeticion('prestamos/insertar',
 				{
 					'fk_par_clientes':$('#fk_par_clientes').val(),
@@ -197,6 +202,11 @@
 				}, 
 				function(rta){
 					alert(rta.mensaje);
+
+					$('#div_mensaje').html('');
+					$('#btn_aceptar').attr("disabled", false);
+					$('#btn_guardar').attr("disabled", false);
+					
 					if (rta.tipo == 'exito')
 						window.location.href = siguiente;
 				}
