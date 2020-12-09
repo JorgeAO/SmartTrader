@@ -1,7 +1,7 @@
 function enviarPeticion(peticion, parametros, funcion)
 {
 	$.ajax({
-		url:'/SmartTrader/nucleo/Enrutador.php?peticion='+peticion,
+		url:'/apps/SmartTrader/nucleo/Enrutador.php?peticion='+peticion,
 		method:'POST',
 		dataType:'JSON',
 		data:{
@@ -34,5 +34,5 @@ function salir() {
 	});
 }
 
-var ruta_tabla_esp = "/SmartTrader/recursos/librerias/datatables/DataTables-1.10.13/extensions/Language/Spanish.json";
-var ruta_root = '/SmartTrader/';
+var ruta_tabla_esp = "/apps/SmartTrader/recursos/librerias/datatables/DataTables-1.10.13/extensions/Language/Spanish.json";
+var ruta_root = '/apps/SmartTrader/';
