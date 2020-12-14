@@ -73,6 +73,9 @@ class CtrlPrestamos extends Control
 				$arrMontoXInver[$value['inve_codigo']]['inve_saldo_min'] = $value['inve_saldo_min'];
 			}
 
+			if ($arrParametros['pres_vlr_monto'] > $dbCapitalDispo)
+				throw new Exception('No hay capital suficiente para realizar el préstamo');
+
 			// Calcular porcentaje de partcipación de los inversionistas
 			// la cantidad que aporta cada uno
 			// el saldo restante
