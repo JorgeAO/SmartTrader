@@ -39,6 +39,10 @@
 						<td class="text-right" id="lbl_pres_plazo"></td>
 					</tr>
 					<tr>
+						<th>Frecuencia de Pago</th>
+						<td class="text-right" id="lbl_pres_frecuencia2"></td>
+					</tr>
+					<tr>
 						<th>Porc. Interes</th>
 						<td class="text-right" id="lbl_pres_interes"></td>
 					</tr>
