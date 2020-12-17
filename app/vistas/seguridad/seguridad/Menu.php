@@ -17,11 +17,15 @@
 </script>
 
 <nav class="navbar navbar-dark navbar-expand-sm bg-dark">
+<<<<<<< HEAD
 	<p>
 		<h5 class="text-white">
 			<a href="../seguridad/principal"> Smart Trader </a>
 		</h5>
 	</p>
+=======
+	<span class="navbar-brand">Smart Trader | Pruebas</span>
+>>>>>>> test
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav_menu" aria-controls="nav_menu" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 	</button>

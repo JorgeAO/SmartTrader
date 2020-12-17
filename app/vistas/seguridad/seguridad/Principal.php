@@ -20,59 +20,48 @@
 
 <br>
 
-<div class="row col-sm-12">
-	<div class="col-sm-3">
-		<div class="card bg-secondary text-white p-3">
-			<p style="font-size:14px"><i class="fa fa-calendar"></i> Fecha</p>
-			<input type="text" class="form-control form-control-sm" name="prcu_fecha" id="prcu_fecha" placeholder="Fecha" data-tipo="texto" data-req="true" readonly="true" value="<?=date('Y-m-d')?>">
-		</div>
-	</div>
-	<div class="col-sm-3">
-		<div class="card bg-secondary text-white p-3">
-			<p style="font-size:14px">
-				<i class="fa fa-handshake-o"></i> Préstamos
-				<a class="btn btn-secondary btn-sm pull-right text-white" title="Agregar préstamo" href="../prestamos/prestamosAdd" style="font-size:14px">
-					<i class="fa fa-plus"></i>
+<div class="container col-sm-12">
+	<div class="row">
+		<div class="col-sm-2">
+			<div class="col-sm-12">
+				<a class="btn btn-secondary btn-block btn-lg pull-right text-white" title="Agregar préstamo" href="../prestamos/prestamosAdd" style="font-size:14px">
+					<i class="fa fa-plus"></i> Agregar Préstamo
 				</a>
-			</p>
-			<h2 class="text-right" id="card_prestamos"></h2>
+				<br><br><br>
+				<div class="card bg-transparent p-3">
+					<p style="font-size:14px"><i class="fa fa-calendar"></i> Fecha</p>
+					<input type="text" class="form-control form-control-sm" name="prcu_fecha" id="prcu_fecha" placeholder="Fecha" data-tipo="texto" data-req="true" readonly="true" value="<?=date('Y-m-d')?>">
+				</div>
+			</div>
 		</div>
-	</div>
-	<!--div class="col-sm-3">
-		<div class="card bg-secondary text-white p-3">
-			<p style="font-size:14px"><i class="fa fa-users"></i> Clientes</p>
-			<h2 class="text-right" id="card_clientes"></h2>
-		</div>
-	</div>
-	<div class="col-sm-3">
-		<div class="card bg-secondary text-white p-3">
-			<p style="font-size:14px"><i class="fa fa-bank"></i> Inversionistas</p>
-			<h2 class="text-right" id="card_inversionistas"></h2>
-		</div>
-	</div-->
-</div>
-<br>
-<div class="row col-sm-12">
-	<div class="col-sm-3">
-		<div class="card bg-secondary text-white p-3">
-			<p style="font-size:14px"><i class="fa fa-usd"></i> Total por recoger hoy</p>
-			<h2 class="text-right" id="card_total_hoy"></h2>
-		</div>
-	</div>
-	<div class="col-sm-3">
-		<div class="card bg-secondary text-white p-3">
-			<p style="font-size:14px"><i class="fa fa-check-circle"></i> Total recogido</p>
-			<h2 class="text-right" id="card_total_recogido"></h2>
-		</div>
-	</div>
-</div>
-<br>
-<div class="row col-sm-12">
-	<div class="col-sm-6">
-		<div class="card">
-			<div class="card-header bg-dark text-white">Mi Día</div>
-			<div class="card-body">
-				<div class="table-responsive" id="div_cuotas"></div>
+		<div class="row col-sm-6">
+			<div class="col-sm-4">
+				<div class="card bg-secondary text-white p-3">
+					<p style="font-size:14px">
+						<i class="fa fa-handshake-o"></i> Préstamos
+					</p>
+					<h2 class="text-right" id="card_prestamos"></h2>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="card bg-secondary text-white p-3">
+					<p style="font-size:14px"><i class="fa fa-usd"></i> Total por recoger hoy</p>
+					<h2 class="text-right" id="card_total_hoy"></h2>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="card bg-secondary text-white p-3">
+					<p style="font-size:14px"><i class="fa fa-check-circle"></i> Total recogido</p>
+					<h2 class="text-right" id="card_total_recogido"></h2>
+				</div>
+			</div>
+			<div class="col-sm-12 p-3">
+				<div class="card">
+					<div class="card-header bg-dark text-white">Mi Día</div>
+					<div class="card-body">
+						<div class="table-responsive" id="div_cuotas"></div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
