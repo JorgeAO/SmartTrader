@@ -33,6 +33,18 @@ class CtrlPrincipal
             // Consultar cuánto se ha recogido hoy
             $arrTotalRecogido = BaseDatos::ejecutarSentencia("select coalesce(sum(prcu_vlr_saldo), 0) as total_recogido from tb_pre_cuotas where fk_par_estados = 4 and prcu_fecha = '".$arrParametros['fecha']."'");
 
+            // Consultar saldos totales
+            $arrTotales = BaseDatos::ejecutarSentencia("select 
+                sum(if(fk_par_estados in (4), prcu_valor, 0)) as recaudado,
+                sum(if(fk_par_estados in (3, 5), prcu_valor, 0)) as cartera,
+                (sum(prcu.prcu_valor)) total
+                from tb_pre_cuotas prcu
+                join tb_par_estados esta on (prcu.fk_par_estados = esta_codigo)
+                where 1 = 1
+                and prcu.fk_par_estados not in (6);"
+            );
+
+
             
             $arrDatos['fecha'] = date('Y-m-d');
             $arrDatos['prestamos'] = count($arrPrestamos);
@@ -40,6 +52,7 @@ class CtrlPrincipal
             $arrDatos['inversionistas'] = count($arrInversionistas);
             $arrDatos['total_hoy'] = $arrTotalHoy[0]['total_hoy'];
             $arrDatos['total_recogido'] = $arrTotalRecogido[0]['total_recogido'];
+            $arrDatos['totales'] = $arrTotales[0]['cartera'];
 
 			$objRta->tipo = 'exito';
 			$objRta->datos = $arrDatos;

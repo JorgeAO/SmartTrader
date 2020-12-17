@@ -34,8 +34,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="row col-sm-6">
-			<div class="col-sm-4">
+		<div class="row col-sm-8">
+			<div class="col-sm-3">
 				<div class="card bg-secondary text-white p-3">
 					<p style="font-size:14px">
 						<i class="fa fa-handshake-o"></i> Préstamos
@@ -43,16 +43,22 @@
 					<h2 class="text-right" id="card_prestamos"></h2>
 				</div>
 			</div>
-			<div class="col-sm-4">
+			<div class="col-sm-3">
 				<div class="card bg-secondary text-white p-3">
 					<p style="font-size:14px"><i class="fa fa-usd"></i> Total por recoger hoy</p>
 					<h2 class="text-right" id="card_total_hoy"></h2>
 				</div>
 			</div>
-			<div class="col-sm-4">
+			<div class="col-sm-3">
 				<div class="card bg-secondary text-white p-3">
 					<p style="font-size:14px"><i class="fa fa-check-circle"></i> Total recogido</p>
 					<h2 class="text-right" id="card_total_recogido"></h2>
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<div class="card bg-secondary text-white p-3">
+					<p style="font-size:14px"><i class="fa fa-exclamation-circle"></i> Cartera Total</p>
+					<h2 class="text-right" id="card_totales"></h2>
 				</div>
 			</div>
 			<div class="col-sm-12 p-3">
