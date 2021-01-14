@@ -11,8 +11,36 @@
 
 <? require '../../seguridad/seguridad/Menu.php'; ?>
 
+<div class="col-sm-12">
+	<div class="card">
+		<div class="card-header bg-dark text-white">Prestamos</div>
+		<div class="card-body">
+			<div class="form-group col-sm-3">
+				<label>Estado</label>
+				<select class="form-control form-control-sm texto-12" name="fk_par_estados" id="fk_par_estados"></select>
+			</div>
+			<div class="form-group">
+				<a class="btn btn-success btn-sm texto-12" href="prestamosAdd">Agregar</a>
+				<button class="btn btn-primary btn-sm texto-12" id="btn_consultar">Consultar</button>
+			</div>
+			<div class="table-responsive" id="div_resultados"></div>
+		</div>
+	</div>
+</div>
+
 <script type="text/javascript">
 	$(document).ready(function(){
+		enviarPeticion('estados/listar',
+			{ 'esta_codigo':'1,6,7' }, 
+			function(rta){
+				var selected = '';
+				$('#fk_par_estados').append('<option value="">-- Todos --</option>');
+				$.each(rta.datos, function(i, val){					
+					$('#fk_par_estados').append('<option value="'+val['esta_codigo']+'">'+val['esta_codigo']+' - '+val['esta_descripcion']+'</option>');
+				});
+			}
+		);
+
 		consultar();
 
 		$('#btn_consultar').on('click', function(){
@@ -23,7 +51,9 @@
 	function consultar()
 	{
 		enviarPeticion('prestamos/consultar',
-			{'':''}, 
+			{
+				'pres.fk_par_estados':$('#fk_par_estados').val()
+			}, 
 			function(rta){
 				if (rta.tipo == 'error')
 					alert(rta.mensaje)
@@ -88,16 +118,3 @@
 		}
 	}
 </script>
-
-<div class="col-sm-12">
-	<div class="card">
-		<div class="card-header bg-dark text-white">Prestamos</div>
-		<div class="card-body">
-			<div class="form-group">
-				<a class="btn btn-success btn-sm texto-12" href="prestamosAdd">Agregar</a>
-				<button class="btn btn-primary btn-sm texto-12" id="btn_consultar">Consultar</button>
-			</div>
-			<div class="table-responsive" id="div_resultados"></div>
-		</div>
-	</div>
-</div>

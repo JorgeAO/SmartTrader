@@ -53,7 +53,12 @@ class Modelo
 				if (is_numeric($strValor) && $strValor != 0)
 					$sqlWhere .= $strCampo." = ".$strValor." and ";
 				elseif (is_string($strValor) && $strValor != '') 
-					$sqlWhere .= $strCampo." = '".$strValor."' and ";
+				{
+					if (strpos($strValor, ','))
+						$sqlWhere .= $strCampo.' in ('.$strValor.') and ';
+					else
+						$sqlWhere .= $strCampo." = '".$strValor."' and ";
+				}
 			}
 
 			$sqlWhere = rtrim($sqlWhere, ' and ');
@@ -61,7 +66,7 @@ class Modelo
 			if ($sqlWhere != '')
 				$modelo->sqlSentencia .= ' where '.$sqlWhere;
 						
-			$blDebug = false;
+			$blDebug = 0;
 			if ($modelo->strTabla == 'tb_par_estados' && $blDebug)
 			{
 				echo $modelo->sqlSentencia; 
