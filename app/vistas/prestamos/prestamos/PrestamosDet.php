@@ -58,6 +58,10 @@
 						<th>Saldo Pendiente</th>
 						<td class="text-right" id="lbl_pres_vlr_saldo"></td>
 					</tr>
+					<tr>
+						<th>Estado del préstamo</th>
+						<td class="text-right" id="lbl_esta_descripcion"></td>
+					</tr>
 				</table>
 			</div>
 		</div>

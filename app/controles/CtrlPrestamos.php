@@ -231,7 +231,6 @@ class CtrlPrestamos extends Control
 			]);
 			// ----------------------------------------------------------------
 
-
 			// Si está pagando el valor exacto de la cuota
 			if ($arrParametros['tipo'] == 'C')
 			{
@@ -490,7 +489,7 @@ class CtrlPrestamos extends Control
 				// Consultar las cuotas pendientes del préstamo
 				$arrCuotasPendientes = ClsCuotas::consultar([
 					'fk_pre_prestamos' => $arrPrestamo[0]['pres_codigo'],
-					'fk_par_estados' => 3,
+					'fk_par_estados' => '3, 5',
 				]);
 
 				// Recorrer las cuotas pendientes
@@ -581,6 +580,21 @@ class CtrlPrestamos extends Control
 				// ----------------------------------------------------------------
 			}
 
+			// Consultar las cuotas no pagadas del préstamo
+			$arrCuotasNoPagadas = ClsCuotas::consultar([
+				'fk_pre_prestamos' => $arrCuota[0]['fk_pre_prestamos'],
+				'fk_par_estados' => '1,3,5', 
+			]);
+
+			// Validar si no hay más cuotas por pagar
+			if (count($arrCuotasNoPagadas) == 0)
+			{
+				// Si no hay más cuotas por pagar, se marca el préstamo como terminado
+				ClsPrestamos::editar([
+					'pres_codigo' => $arrPrestamo[0]['pres_codigo'],
+					'fk_par_estados' => 7,
+				]);
+			}
 			
 			$objRta->tipo = 'exito';
 			$objRta->mensaje = 'El proceso se realizó con éxito';

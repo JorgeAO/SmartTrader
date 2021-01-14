@@ -11,6 +11,8 @@ RewriteEngine on
 
 	RewriteRule ^seguridad/permisos$				 			app/vistas/seguridad/permisos/Permisos.php
 
+	RewriteRule ^seguridad/dba$				 					app/vistas/seguridad/dba/Dba.php
+
 	RewriteRule ^seguridad/perfiles$			 				app/vistas/seguridad/perfiles/Perfiles.php
 	RewriteRule ^seguridad/perfilesAdd$ 						app/vistas/seguridad/perfiles/PerfilesAdd.php
 	RewriteRule ^seguridad/perfilesUpd/(\w+)$			 		app/vistas/seguridad/perfiles/PerfilesUpd.php?cod=$1
