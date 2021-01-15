@@ -48,8 +48,14 @@ RewriteEngine on
 
 
 # --------------------------------------------------------------------------
-# URL's del módulo de caja y bancos
+# URL's del módulo de prestamos
 # --------------------------------------------------------------------------
 	RewriteRule ^prestamos/prestamos$ 							app/vistas/prestamos/prestamos/Prestamos.php
 	RewriteRule ^prestamos/prestamosAdd$						app/vistas/prestamos/prestamos/PrestamosAdd.php
 	RewriteRule ^prestamos/prestamosDet/(\w+)$					app/vistas/prestamos/prestamos/PrestamosDet.php?cod=$1
+
+
+# --------------------------------------------------------------------------
+# URL's del módulo de reportes
+# --------------------------------------------------------------------------
+	RewriteRule ^reportes/nuevos$ 								app/vistas/reportes/reportes/Nuevos.php
