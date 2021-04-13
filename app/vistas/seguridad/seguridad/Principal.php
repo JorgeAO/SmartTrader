@@ -131,6 +131,8 @@
 </div>
 
 <script type="text/javascript">
+	var valorCuota, valorSaldo;
+
 	$(document).ready(function(){
 		
 		$('#prcu_fecha').datepicker({
@@ -170,8 +172,10 @@
 					'prestamos/pago',
 					{
 						'cuota':$('#pc_prcu_codigo')[0].innerText,
-						'vlr_cuota':$('#pc_prcu_valor')[0].innerText,
-						'saldo':$('#pc_pres_vlr_saldo')[0].innerText,
+						//'vlr_cuota':$('#pc_prcu_valor')[0].innerText,
+						//'saldo':$('#pc_pres_vlr_saldo')[0].innerText,
+						'vlr_cuota':valorCuota,
+						'saldo':valorSaldo,
 						'fecha':$('#pc_pago_fecha').val(),
 						'tipo':$('#pc_tipo_pago').val(),
 						'valor':$('#pc_vlr_pago').val(),
@@ -203,7 +207,7 @@
 				else if (rta.tipo == 'exito')
 				{
 					$.each(rta.datos, function(i, val){
-						$('#card_'+i).html(val);
+						$('#card_'+i).html(new Intl.NumberFormat("es-CO").format(val));
 					});
 				}
 			}
@@ -248,7 +252,7 @@
 							'<td>'+val['clie_celular']+'</td>'+
 							'<td>'+val['fk_pre_prestamos']+'</td>'+
 							'<td>'+val['prcu_numero']+'</td>'+
-							'<td>'+val['prcu_vlr_saldo']+'</td>'+
+							'<td style="text-align:right">'+new Intl.NumberFormat("es-CO").format(val['prcu_vlr_saldo'])+'</td>'+
 							'<td><span class="badge badge-'+estado+'">'+val['esta_descripcion']+'</span></td>'+
 							'<td>';
 							if (val['fk_par_estados'] == 3 || val['fk_par_estados'] == 5)
@@ -269,9 +273,12 @@
 
 	function registrarPago(cod, vlrCuota, vlrSaldo)
 	{
+		valorCuota = vlrCuota;
+		valorSaldo = vlrSaldo;
+
 		$('#pc_prcu_codigo').html(cod);
-		$('#pc_prcu_valor').html(vlrCuota);
-		$('#pc_pres_vlr_saldo').html(vlrSaldo);
+		$('#pc_prcu_valor').html('$' + new Intl.NumberFormat("es-CO").format(vlrCuota));
+		$('#pc_pres_vlr_saldo').html('$'+new Intl.NumberFormat("es-CO").format(vlrSaldo));
 		$('#mdl_pago').modal('show');
 	}
 </script>
